@@ -1,0 +1,1640 @@
+{
+  "users": [
+    {
+      "id": "user-21ed9806-7337-42c2-94bc-e758fd64ae08",
+      "name": "System Administrator",
+      "email": "admin@smartmarket.ai",
+      "passwordHash": "$2b$12$Eoo/QdRlpJsZQ2jchY388uA58fXXv1gNsPpkmx8V0cKnItKTW2h6i",
+      "role": "admin",
+      "vendorId": null,
+      "createdAt": "2026-06-07T09:03:15.716Z"
+    },
+    {
+      "id": "user-635edcd5-b447-44f8-881f-52683276ee23",
+      "name": "Kishan Thamban",
+      "email": "kishanthamban@gmail.com",
+      "passwordHash": "$2b$12$CN8J.LsP.EyXiIvtrQ6lLOMbpQD2/Eup4j8EcwK/IpadHlFDWE3Wi",
+      "role": "customer",
+      "vendorId": null,
+      "createdAt": "2026-06-07T09:14:20.865Z"
+    },
+    {
+      "id": "user-b1b509fc-caca-498c-8f43-d76ffeeae5a3",
+      "name": "Kishan Thamban",
+      "email": "craftfedcharm@gmail.com",
+      "passwordHash": "$2b$12$nxp1iTQhnldQrvywbrdX7u5mADRLDC.Bo/qs10JLD5wPoFnq76qHq",
+      "role": "vendor",
+      "vendorId": "v-a17ff7a6",
+      "createdAt": "2026-06-07T09:15:32.418Z"
+    },
+    {
+      "id": "user-a66a30b2-18fa-40eb-b55c-5c394bd4717b",
+      "name": "Test User",
+      "email": "test@test.com",
+      "passwordHash": "$2b$12$exdIKJnEv6CyJXzTz5yU8etY7wdtPL3flBq/yX4M0bTDTCisJ.MIa",
+      "role": "customer",
+      "vendorId": null,
+      "createdAt": "2026-06-07T09:20:38.822Z"
+    },
+    {
+      "id": "user-987a19a5-9305-4973-bd8a-3d5a3a12b825",
+      "name": "Kishan Thamban",
+      "email": "vendor@craftedcharm.com",
+      "passwordHash": "$2b$12$yUABeFSiqHWIxAZrGMKBoepQYuN/cCurEqeXqvWH0BvVB9BK.WyfW",
+      "role": "vendor",
+      "vendorId": "v-5cfa1e04",
+      "createdAt": "2026-06-07T09:35:16.581Z"
+    },
+    {
+      "id": "user-d41f524e-005e-48f0-920b-67c652251809",
+      "name": "Customer",
+      "email": "customer@gmail.com",
+      "passwordHash": "$2b$12$uYCTkUkFgWjyxxX4VxnHLu5IrwhjI7zgmADqHWUrQKYrxjyl1Ql6i",
+      "role": "customer",
+      "vendorId": null,
+      "createdAt": "2026-06-07T09:43:43.808Z"
+    }
+  ],
+  "vendors": [
+    {
+      "id": "v-01",
+      "name": "Priya Sharma",
+      "storeName": "Kirana Plus",
+      "email": "priya@kiranaplus.com",
+      "joinedDate": "2024-01-12",
+      "logo": "KP",
+      "rating": 4.8,
+      "status": "Approved",
+      "revenue": 452349,
+      "balance": 412314,
+      "itemsFulfilled": 343,
+      "returnRate": "1.2%"
+    },
+    {
+      "id": "v-02",
+      "name": "Arjun Mehta",
+      "storeName": "UrbanCraft Textiles",
+      "email": "arjun@urbancraft.in",
+      "joinedDate": "2024-02-18",
+      "logo": "UC",
+      "rating": 4.9,
+      "status": "Approved",
+      "revenue": 892000,
+      "balance": 785000,
+      "itemsFulfilled": 681,
+      "returnRate": "0.8%"
+    },
+    {
+      "id": "v-03",
+      "name": "Divya Nair",
+      "storeName": "ThreadHouse Clothing",
+      "email": "divya@threadhouse.com",
+      "joinedDate": "2024-03-01",
+      "logo": "TH",
+      "rating": 4.7,
+      "status": "Approved",
+      "revenue": 300799,
+      "balance": 244519,
+      "itemsFulfilled": 220,
+      "returnRate": "2.1%"
+    },
+    {
+      "id": "v-04",
+      "name": "Rajesh Kumar",
+      "storeName": "Organic Harvests",
+      "email": "rajesh@organicharvests.com",
+      "joinedDate": "2024-05-15",
+      "logo": "OH",
+      "rating": 4.5,
+      "status": "Pending Approval",
+      "revenue": 0,
+      "balance": 0,
+      "itemsFulfilled": 0,
+      "returnRate": "0%"
+    },
+    {
+      "id": "v-05",
+      "name": "Siddharth Rao",
+      "storeName": "EcoWear Labs",
+      "email": "sid@ecowear.com",
+      "joinedDate": "2024-06-01",
+      "logo": "EW",
+      "rating": 0,
+      "status": "Pending Approval",
+      "revenue": 0,
+      "balance": 0,
+      "itemsFulfilled": 0,
+      "returnRate": "0%"
+    },
+    {
+      "id": "v-a17ff7a6",
+      "name": "Kishan Thamban",
+      "storeName": "CraftedCharm",
+      "email": "craftfedcharm@gmail.com",
+      "joinedDate": "2026-06-07",
+      "logo": "C",
+      "rating": 0,
+      "status": "Approved",
+      "revenue": 0,
+      "balance": 0,
+      "itemsFulfilled": 0,
+      "returnRate": "0%"
+    },
+    {
+      "id": "v-5cfa1e04",
+      "name": "Kishan Thamban",
+      "storeName": "CraftedCharm",
+      "email": "vendor@craftedcharm.com",
+      "joinedDate": "2026-06-07",
+      "logo": "C",
+      "rating": 0,
+      "status": "Pending Approval",
+      "revenue": 349,
+      "balance": 314,
+      "itemsFulfilled": 1,
+      "returnRate": "0%"
+    }
+  ],
+  "products": [
+    {
+      "id": "p-01",
+      "name": "Premium Linen Summer Dress",
+      "category": "Apparel",
+      "description": "Ethically sourced, 100% pure organic linen summer dress.",
+      "price": 3499,
+      "image": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&auto=format&fit=crop&q=80",
+      "vendorId": "v-02",
+      "stock": 65,
+      "reorderThreshold": 20,
+      "salesVelocity": 3.5,
+      "ratings": 4.8,
+      "reviews": [
+        {
+          "id": "r-1",
+          "user": "Karan Johar",
+          "rating": 5,
+          "comment": "Absolutely love the build quality and how light the fabric is!"
+        },
+        {
+          "id": "r-2",
+          "user": "Riya Sen",
+          "rating": 4,
+          "comment": "Fits perfectly. Recommended for summer."
+        }
+      ]
+    },
+    {
+      "id": "p-02",
+      "name": "Handmade Ceramic Serving Bowl",
+      "category": "Home & Kitchen",
+      "description": "Stone-fired, double-glazed ceramic bowl crafted by local artisans.",
+      "price": 1899,
+      "image": "https://images.unsplash.com/photo-1576016770956-debb63d90029?w=500&auto=format&fit=crop&q=80",
+      "vendorId": "v-02",
+      "stock": 12,
+      "reorderThreshold": 15,
+      "salesVelocity": 1.8,
+      "ratings": 4.9,
+      "reviews": [
+        {
+          "id": "r-3",
+          "user": "Nisha Patel",
+          "rating": 5,
+          "comment": "A beautiful addition to my dining table."
+        }
+      ]
+    },
+    {
+      "id": "p-03",
+      "name": "Cold-Pressed Virgin Coconut Oil",
+      "category": "Organic Food",
+      "description": "100% natural, unrefined coconut oil extracted from fresh organic coconuts.",
+      "price": 499,
+      "image": "https://images.unsplash.com/photo-1622484211148-717df9d14677?w=500&auto=format&fit=crop&q=80",
+      "vendorId": "v-01",
+      "stock": 120,
+      "reorderThreshold": 30,
+      "salesVelocity": 6.2,
+      "ratings": 4.7,
+      "reviews": [
+        {
+          "id": "r-4",
+          "user": "Vikram V.",
+          "rating": 5,
+          "comment": "Smells so fresh."
+        },
+        {
+          "id": "r-5",
+          "user": "Meera Nair",
+          "rating": 4,
+          "comment": "Excellent oil."
+        }
+      ]
+    },
+    {
+      "id": "p-04",
+      "name": "Handwoven Bamboo Fruit Basket",
+      "category": "Home & Kitchen",
+      "description": "Meticulously woven from organic bamboo fibers.",
+      "price": 899,
+      "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
+      "vendorId": "v-01",
+      "stock": 8,
+      "reorderThreshold": 10,
+      "salesVelocity": 1.1,
+      "ratings": 4.6,
+      "reviews": [
+        {
+          "id": "r-6",
+          "user": "Amit S.",
+          "rating": 5,
+          "comment": "Extremely lightweight and sturdy."
+        }
+      ]
+    },
+    {
+      "id": "p-05",
+      "name": "Organic Sage Infused Tea",
+      "category": "Organic Food",
+      "description": "Sun-dried sage leaves blended with fine Darjeeling loose-leaf tea.",
+      "price": 349,
+      "image": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=80",
+      "vendorId": "v-01",
+      "stock": 239,
+      "reorderThreshold": 50,
+      "salesVelocity": 8.5,
+      "ratings": 4.4,
+      "reviews": []
+    },
+    {
+      "id": "p-06",
+      "name": "Minimalist Linen Trousers",
+      "category": "Apparel",
+      "description": "Calm beige relaxed fit drawstring linen trousers.",
+      "price": 2799,
+      "image": "https://images.unsplash.com/photo-1509551388413-e18d0ac5d495?w=500&auto=format&fit=crop&q=80",
+      "vendorId": "v-03",
+      "stock": 34,
+      "reorderThreshold": 15,
+      "salesVelocity": 2.1,
+      "ratings": 4.8,
+      "reviews": [
+        {
+          "id": "r-7",
+          "user": "Samir K.",
+          "rating": 5,
+          "comment": "Insanely comfortable."
+        }
+      ]
+    },
+    {
+      "id": "p-ef988520",
+      "name": "Handmade Bracelet",
+      "category": "Apparel",
+      "price": 349,
+      "stock": 49,
+      "description": "Handmade ",
+      "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
+      "vendorId": "v-5cfa1e04",
+      "reorderThreshold": 10,
+      "salesVelocity": 3.5,
+      "reviews": [],
+      "ratings": 5
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-8831",
+      "customerName": "Rohan Khanna",
+      "vendorId": "v-02",
+      "items": [
+        {
+          "productId": "p-01",
+          "name": "Premium Linen Summer Dress",
+          "quantity": 1,
+          "price": 3499
+        }
+      ],
+      "total": 3499,
+      "status": "Pending",
+      "date": "2026-06-02",
+      "shippingAddress": "Flat 402, Green Glen Layout, Bengaluru, KA - 560103"
+    },
+    {
+      "id": "ord-8832",
+      "customerName": "Aishwarya Rai",
+      "vendorId": "v-01",
+      "items": [
+        {
+          "productId": "p-03",
+          "name": "Cold-Pressed Virgin Coconut Oil",
+          "quantity": 2,
+          "price": 499
+        },
+        {
+          "productId": "p-05",
+          "name": "Organic Sage Infused Tea",
+          "quantity": 3,
+          "price": 349
+        }
+      ],
+      "total": 2045,
+      "status": "Shipped",
+      "date": "2026-06-01",
+      "shippingAddress": "A-12, Lokhandwala Complex, Andheri West, Mumbai, MH - 400053"
+    },
+    {
+      "id": "ord-8833",
+      "customerName": "Kabir Singh",
+      "vendorId": "v-02",
+      "items": [
+        {
+          "productId": "p-02",
+          "name": "Handmade Ceramic Serving Bowl",
+          "quantity": 2,
+          "price": 1899
+        }
+      ],
+      "total": 3798,
+      "status": "Delivered",
+      "date": "2026-05-28",
+      "shippingAddress": "House 10, Sector 15, Gurugram, HR - 122001"
+    },
+    {
+      "id": "ord-8834",
+      "customerName": "Sanya Malhotra",
+      "vendorId": "v-03",
+      "items": [
+        {
+          "productId": "p-06",
+          "name": "Minimalist Linen Trousers",
+          "quantity": 1,
+          "price": 2799
+        }
+      ],
+      "total": 2799,
+      "status": "Delivered",
+      "date": "2026-05-26",
+      "shippingAddress": "Lane 3, Jubilee Hills, Hyderabad, TS - 500033"
+    },
+    {
+      "id": "ord-d658902a-f292-404c-81d4-114549b2df7b",
+      "status": "Pending",
+      "date": "2026-06-07",
+      "paidAt": "2026-06-07T09:14:45.266Z",
+      "userId": "user-635edcd5-b447-44f8-881f-52683276ee23",
+      "customerName": "Kishan Thamban",
+      "phone": null,
+      "shippingAddress": "bv ",
+      "vendorId": "v-01",
+      "items": [
+        {
+          "productId": "p-05",
+          "name": "Organic Sage Infused Tea",
+          "quantity": 1,
+          "price": 349,
+          "image": null,
+          "vendorId": null
+        }
+      ],
+      "subtotal": 349,
+      "shippingFee": 0,
+      "total": 349,
+      "paymentMethod": null
+    },
+    {
+      "id": "ord-efd43931-a54b-408c-a0dd-991632380497",
+      "status": "Pending",
+      "date": "2026-06-07",
+      "paidAt": "2026-06-07T09:46:05.926Z",
+      "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
+      "customerName": "Customer",
+      "phone": null,
+      "shippingAddress": "n m n",
+      "vendorId": "v-03",
+      "items": [
+        {
+          "productId": "p-06",
+          "name": "Minimalist Linen Trousers",
+          "quantity": 1,
+          "price": 2799,
+          "image": null,
+          "vendorId": null
+        }
+      ],
+      "subtotal": 2799,
+      "shippingFee": 0,
+      "total": 2799,
+      "paymentMethod": null
+    },
+    {
+      "id": "ord-9038f325-e698-4c86-aeb1-120a06c9278e",
+      "status": "Pending",
+      "date": "2026-06-07",
+      "paidAt": "2026-06-07T09:46:36.470Z",
+      "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
+      "customerName": "Customer",
+      "phone": null,
+      "shippingAddress": ",n ",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 1,
+          "price": 349,
+          "image": null,
+          "vendorId": null
+        }
+      ],
+      "subtotal": 349,
+      "shippingFee": 0,
+      "total": 349,
+      "paymentMethod": null
+    }
+  ],
+  "salesHistory": [
+    {
+      "id": "sh-001",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-01",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-002",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-04",
+      "quantity": 2,
+      "revenue": 6998
+    },
+    {
+      "id": "sh-003",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-07",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-004",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-10",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-005",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-13",
+      "quantity": 5,
+      "revenue": 17495
+    },
+    {
+      "id": "sh-006",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-16",
+      "quantity": 2,
+      "revenue": 6998
+    },
+    {
+      "id": "sh-007",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-19",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-008",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-22",
+      "quantity": 6,
+      "revenue": 20994
+    },
+    {
+      "id": "sh-009",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-25",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-010",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-28",
+      "quantity": 5,
+      "revenue": 17495
+    },
+    {
+      "id": "sh-011",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-03-31",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-012",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-03",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-013",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-06",
+      "quantity": 7,
+      "revenue": 24493
+    },
+    {
+      "id": "sh-014",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-09",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-015",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-12",
+      "quantity": 5,
+      "revenue": 17495
+    },
+    {
+      "id": "sh-016",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-15",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-017",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-18",
+      "quantity": 6,
+      "revenue": 20994
+    },
+    {
+      "id": "sh-018",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-21",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-019",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-24",
+      "quantity": 5,
+      "revenue": 17495
+    },
+    {
+      "id": "sh-020",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-27",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-021",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-04-30",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-022",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-03",
+      "quantity": 6,
+      "revenue": 20994
+    },
+    {
+      "id": "sh-023",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-06",
+      "quantity": 5,
+      "revenue": 17495
+    },
+    {
+      "id": "sh-024",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-09",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-025",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-12",
+      "quantity": 7,
+      "revenue": 24493
+    },
+    {
+      "id": "sh-026",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-15",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-027",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-18",
+      "quantity": 5,
+      "revenue": 17495
+    },
+    {
+      "id": "sh-028",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-21",
+      "quantity": 4,
+      "revenue": 13996
+    },
+    {
+      "id": "sh-029",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-24",
+      "quantity": 6,
+      "revenue": 20994
+    },
+    {
+      "id": "sh-030",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-27",
+      "quantity": 3,
+      "revenue": 10497
+    },
+    {
+      "id": "sh-031",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-05-30",
+      "quantity": 5,
+      "revenue": 17495
+    },
+    {
+      "id": "sh-032",
+      "productId": "p-01",
+      "vendorId": "v-02",
+      "date": "2026-06-02",
+      "quantity": 1,
+      "revenue": 3499
+    },
+    {
+      "id": "sh-101",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-03-05",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-102",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-03-11",
+      "quantity": 1,
+      "revenue": 1899
+    },
+    {
+      "id": "sh-103",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-03-17",
+      "quantity": 3,
+      "revenue": 5697
+    },
+    {
+      "id": "sh-104",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-03-23",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-105",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-03-29",
+      "quantity": 1,
+      "revenue": 1899
+    },
+    {
+      "id": "sh-106",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-04-04",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-107",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-04-10",
+      "quantity": 3,
+      "revenue": 5697
+    },
+    {
+      "id": "sh-108",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-04-16",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-109",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-04-22",
+      "quantity": 1,
+      "revenue": 1899
+    },
+    {
+      "id": "sh-110",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-04-28",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-111",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-05-04",
+      "quantity": 3,
+      "revenue": 5697
+    },
+    {
+      "id": "sh-112",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-05-10",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-113",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-05-16",
+      "quantity": 1,
+      "revenue": 1899
+    },
+    {
+      "id": "sh-114",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-05-22",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-115",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-05-28",
+      "quantity": 3,
+      "revenue": 5697
+    },
+    {
+      "id": "sh-116",
+      "productId": "p-02",
+      "vendorId": "v-02",
+      "date": "2026-06-02",
+      "quantity": 2,
+      "revenue": 3798
+    },
+    {
+      "id": "sh-201",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-02",
+      "quantity": 6,
+      "revenue": 2994
+    },
+    {
+      "id": "sh-202",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-05",
+      "quantity": 8,
+      "revenue": 3992
+    },
+    {
+      "id": "sh-203",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-08",
+      "quantity": 5,
+      "revenue": 2495
+    },
+    {
+      "id": "sh-204",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-11",
+      "quantity": 9,
+      "revenue": 4491
+    },
+    {
+      "id": "sh-205",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-14",
+      "quantity": 7,
+      "revenue": 3493
+    },
+    {
+      "id": "sh-206",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-17",
+      "quantity": 10,
+      "revenue": 4990
+    },
+    {
+      "id": "sh-207",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-20",
+      "quantity": 6,
+      "revenue": 2994
+    },
+    {
+      "id": "sh-208",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-23",
+      "quantity": 8,
+      "revenue": 3992
+    },
+    {
+      "id": "sh-209",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-26",
+      "quantity": 7,
+      "revenue": 3493
+    },
+    {
+      "id": "sh-210",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-03-29",
+      "quantity": 9,
+      "revenue": 4491
+    },
+    {
+      "id": "sh-211",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-01",
+      "quantity": 6,
+      "revenue": 2994
+    },
+    {
+      "id": "sh-212",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-04",
+      "quantity": 10,
+      "revenue": 4990
+    },
+    {
+      "id": "sh-213",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-07",
+      "quantity": 8,
+      "revenue": 3992
+    },
+    {
+      "id": "sh-214",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-10",
+      "quantity": 7,
+      "revenue": 3493
+    },
+    {
+      "id": "sh-215",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-13",
+      "quantity": 9,
+      "revenue": 4491
+    },
+    {
+      "id": "sh-216",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-16",
+      "quantity": 6,
+      "revenue": 2994
+    },
+    {
+      "id": "sh-217",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-19",
+      "quantity": 11,
+      "revenue": 5489
+    },
+    {
+      "id": "sh-218",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-22",
+      "quantity": 8,
+      "revenue": 3992
+    },
+    {
+      "id": "sh-219",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-25",
+      "quantity": 7,
+      "revenue": 3493
+    },
+    {
+      "id": "sh-220",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-04-28",
+      "quantity": 9,
+      "revenue": 4491
+    },
+    {
+      "id": "sh-221",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-01",
+      "quantity": 6,
+      "revenue": 2994
+    },
+    {
+      "id": "sh-222",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-04",
+      "quantity": 10,
+      "revenue": 4990
+    },
+    {
+      "id": "sh-223",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-07",
+      "quantity": 8,
+      "revenue": 3992
+    },
+    {
+      "id": "sh-224",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-10",
+      "quantity": 7,
+      "revenue": 3493
+    },
+    {
+      "id": "sh-225",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-13",
+      "quantity": 12,
+      "revenue": 5988
+    },
+    {
+      "id": "sh-226",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-16",
+      "quantity": 9,
+      "revenue": 4491
+    },
+    {
+      "id": "sh-227",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-19",
+      "quantity": 6,
+      "revenue": 2994
+    },
+    {
+      "id": "sh-228",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-22",
+      "quantity": 10,
+      "revenue": 4990
+    },
+    {
+      "id": "sh-229",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-25",
+      "quantity": 8,
+      "revenue": 3992
+    },
+    {
+      "id": "sh-230",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-28",
+      "quantity": 7,
+      "revenue": 3493
+    },
+    {
+      "id": "sh-231",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-05-31",
+      "quantity": 9,
+      "revenue": 4491
+    },
+    {
+      "id": "sh-232",
+      "productId": "p-03",
+      "vendorId": "v-01",
+      "date": "2026-06-01",
+      "quantity": 2,
+      "revenue": 998
+    },
+    {
+      "id": "sh-301",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-03-04",
+      "quantity": 1,
+      "revenue": 899
+    },
+    {
+      "id": "sh-302",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-03-12",
+      "quantity": 2,
+      "revenue": 1798
+    },
+    {
+      "id": "sh-303",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-03-20",
+      "quantity": 1,
+      "revenue": 899
+    },
+    {
+      "id": "sh-304",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-03-28",
+      "quantity": 2,
+      "revenue": 1798
+    },
+    {
+      "id": "sh-305",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-04-05",
+      "quantity": 1,
+      "revenue": 899
+    },
+    {
+      "id": "sh-306",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-04-13",
+      "quantity": 2,
+      "revenue": 1798
+    },
+    {
+      "id": "sh-307",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-04-21",
+      "quantity": 1,
+      "revenue": 899
+    },
+    {
+      "id": "sh-308",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-04-29",
+      "quantity": 2,
+      "revenue": 1798
+    },
+    {
+      "id": "sh-309",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-05-07",
+      "quantity": 1,
+      "revenue": 899
+    },
+    {
+      "id": "sh-310",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-05-15",
+      "quantity": 2,
+      "revenue": 1798
+    },
+    {
+      "id": "sh-311",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-05-23",
+      "quantity": 1,
+      "revenue": 899
+    },
+    {
+      "id": "sh-312",
+      "productId": "p-04",
+      "vendorId": "v-01",
+      "date": "2026-05-31",
+      "quantity": 2,
+      "revenue": 1798
+    },
+    {
+      "id": "sh-401",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-01",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-402",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-04",
+      "quantity": 12,
+      "revenue": 4188
+    },
+    {
+      "id": "sh-403",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-07",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-404",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-10",
+      "quantity": 11,
+      "revenue": 3839
+    },
+    {
+      "id": "sh-405",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-13",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-406",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-16",
+      "quantity": 13,
+      "revenue": 4537
+    },
+    {
+      "id": "sh-407",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-19",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-408",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-22",
+      "quantity": 12,
+      "revenue": 4188
+    },
+    {
+      "id": "sh-409",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-25",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-410",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-28",
+      "quantity": 11,
+      "revenue": 3839
+    },
+    {
+      "id": "sh-411",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-03-31",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-412",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-03",
+      "quantity": 13,
+      "revenue": 4537
+    },
+    {
+      "id": "sh-413",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-06",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-414",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-09",
+      "quantity": 12,
+      "revenue": 4188
+    },
+    {
+      "id": "sh-415",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-12",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-416",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-15",
+      "quantity": 11,
+      "revenue": 3839
+    },
+    {
+      "id": "sh-417",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-18",
+      "quantity": 14,
+      "revenue": 4886
+    },
+    {
+      "id": "sh-418",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-21",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-419",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-24",
+      "quantity": 12,
+      "revenue": 4188
+    },
+    {
+      "id": "sh-420",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-27",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-421",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-04-30",
+      "quantity": 13,
+      "revenue": 4537
+    },
+    {
+      "id": "sh-422",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-03",
+      "quantity": 11,
+      "revenue": 3839
+    },
+    {
+      "id": "sh-423",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-06",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-424",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-09",
+      "quantity": 12,
+      "revenue": 4188
+    },
+    {
+      "id": "sh-425",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-12",
+      "quantity": 15,
+      "revenue": 5235
+    },
+    {
+      "id": "sh-426",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-15",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-427",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-18",
+      "quantity": 13,
+      "revenue": 4537
+    },
+    {
+      "id": "sh-428",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-21",
+      "quantity": 11,
+      "revenue": 3839
+    },
+    {
+      "id": "sh-429",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-24",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-430",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-27",
+      "quantity": 12,
+      "revenue": 4188
+    },
+    {
+      "id": "sh-431",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-05-30",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-432",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-06-01",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-501",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-03-03",
+      "quantity": 2,
+      "revenue": 5598
+    },
+    {
+      "id": "sh-502",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-03-09",
+      "quantity": 3,
+      "revenue": 8397
+    },
+    {
+      "id": "sh-503",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-03-15",
+      "quantity": 2,
+      "revenue": 5598
+    },
+    {
+      "id": "sh-504",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-03-21",
+      "quantity": 4,
+      "revenue": 11196
+    },
+    {
+      "id": "sh-505",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-03-27",
+      "quantity": 2,
+      "revenue": 5598
+    },
+    {
+      "id": "sh-506",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-04-02",
+      "quantity": 3,
+      "revenue": 8397
+    },
+    {
+      "id": "sh-507",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-04-08",
+      "quantity": 2,
+      "revenue": 5598
+    },
+    {
+      "id": "sh-508",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-04-14",
+      "quantity": 4,
+      "revenue": 11196
+    },
+    {
+      "id": "sh-509",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-04-20",
+      "quantity": 3,
+      "revenue": 8397
+    },
+    {
+      "id": "sh-510",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-04-26",
+      "quantity": 2,
+      "revenue": 5598
+    },
+    {
+      "id": "sh-511",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-05-02",
+      "quantity": 3,
+      "revenue": 8397
+    },
+    {
+      "id": "sh-512",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-05-08",
+      "quantity": 4,
+      "revenue": 11196
+    },
+    {
+      "id": "sh-513",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-05-14",
+      "quantity": 2,
+      "revenue": 5598
+    },
+    {
+      "id": "sh-514",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-05-20",
+      "quantity": 3,
+      "revenue": 8397
+    },
+    {
+      "id": "sh-515",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-05-26",
+      "quantity": 4,
+      "revenue": 11196
+    },
+    {
+      "id": "sh-516",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-06-01",
+      "quantity": 2,
+      "revenue": 5598
+    },
+    {
+      "id": "sh-517",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-06-02",
+      "quantity": 1,
+      "revenue": 2799
+    },
+    {
+      "id": "sh-1780823685267-5e9bd056",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-06-07",
+      "quantity": 1,
+      "revenue": 349
+    },
+    {
+      "id": "sh-1780825565926-3223b260",
+      "productId": "p-06",
+      "vendorId": "v-03",
+      "date": "2026-06-07",
+      "quantity": 1,
+      "revenue": 2799
+    },
+    {
+      "id": "sh-1780825596470-ff0510ae",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-07",
+      "quantity": 1,
+      "revenue": 349
+    }
+  ],
+  "stats": {
+    "gmv": 1645497,
+    "commissionRate": 10,
+    "totalCommission": 164550,
+    "activeVendors": 4,
+    "pendingVendors": 3
+  },
+  "carts": {
+    "user-635edcd5-b447-44f8-881f-52683276ee23": {
+      "userId": "user-635edcd5-b447-44f8-881f-52683276ee23",
+      "items": [],
+      "updatedAt": "2026-06-07T09:14:50.898Z"
+    },
+    "user-d41f524e-005e-48f0-920b-67c652251809": {
+      "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
+      "items": [
+        {
+          "id": "p-04",
+          "name": "Handwoven Bamboo Fruit Basket",
+          "price": 899,
+          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
+          "category": "Home & Kitchen",
+          "stock": 8,
+          "vendorId": "v-01",
+          "quantity": 9
+        }
+      ],
+      "updatedAt": "2026-06-07T09:48:46.393Z"
+    }
+  }
+}
