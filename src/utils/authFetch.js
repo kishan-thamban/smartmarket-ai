@@ -40,7 +40,10 @@ export async function authFetch(url, options = {}) {
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
-  const response = await fetch(url, { ...options, headers });
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
+  const finalUrl = url.startsWith("http") ? url : `${baseUrl}${url}`;
+
+  const response = await fetch(finalUrl, { ...options, headers });
 
   // Auto-logout on expired / invalid token
   if (response.status === 401) {

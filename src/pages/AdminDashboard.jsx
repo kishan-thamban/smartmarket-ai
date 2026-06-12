@@ -24,6 +24,7 @@ export default function AdminDashboard() {
   const [commissionInput, setCommissionInput] = useState(PLATFORM_STATS.commissionRate);
   const [alertMessage,    setAlertMessage]    = useState("");
   const [alertType,       setAlertType]       = useState("success"); // "success" | "error"
+  const [loading,         setLoading]         = useState(true);
 
   const showAlert = (msg, type = "success") => {
     setAlertMessage(msg);
@@ -69,6 +70,8 @@ export default function AdminDashboard() {
         }
       } catch {
         setStats(PLATFORM_STATS);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -118,7 +121,7 @@ export default function AdminDashboard() {
   // ── Vendor approval flow ───────────────────────────────────────────────────
   const handleApproveVendor = async (vendorId, status) => {
     // Optimistic update
-    setVendors((prev) => prev.map((v) => v.id === vendorId ? { ...v, status } : v));
+    setVendors((prev) => prev.map((v) => v.id === vendorId ? { ...v, _prevStatus: v.status, status } : v));
 
     try {
       // FIX: authFetch attaches Authorization header
@@ -135,6 +138,7 @@ export default function AdminDashboard() {
       }
     } catch {
       showAlert("Network error — vendor status update may not have persisted.", "error");
+      setVendors((prev) => prev.map((v) => v.id === vendorId ? { ...v, status: v._prevStatus ?? v.status } : v));
     }
   };
 
@@ -170,8 +174,15 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Overview cards */}
-        <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {loading ? (
+          <div className="flex items-center justify-center py-20 text-olive">
+            <span className="w-8 h-8 border-4 border-olive/30 border-t-olive rounded-full animate-spin" />
+            <span className="ml-3 font-semibold text-darkgray">Loading dashboard data...</span>
+          </div>
+        ) : (
+          <>
+            {/* Overview cards */}
+            <section className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <StatCard
             label="Platform GMV"
             value={`₹${stats.gmv.toLocaleString("en-IN")}`}
@@ -349,6 +360,8 @@ export default function AdminDashboard() {
             </table>
           </div>
         </section>
+        </>
+        )}
 
       </main>
     </div>

@@ -17,7 +17,7 @@ import { authFetch } from "../utils/authFetch";
 import {
   Plus, Check, RefreshCw, AlertTriangle,
   Package, DollarSign, TrendingUp, BarChart2,
-  Boxes, ShoppingCart, Trash2,
+  Boxes, ShoppingCart, Trash2, Edit2,
 } from "lucide-react";
 
 function XIcon({ className }) {
@@ -50,7 +50,7 @@ export default function VendorDashboard() {
   const [selectedProductId, setSelectedProductId] = useState("");
   const [forecastData,      setForecastData]       = useState([]);
   const [forecastMetrics,   setForecastMetrics]    = useState({ rmse: null, mape: null });
-  const [forecastSource,    setForecastSource]     = useState("sklearn-linear-regression");
+  const [forecastSource,    setForecastSource]     = useState("lstm");
   const [salesSummary,      setSalesSummary]       = useState([]);
 
   // Inventory recs
@@ -60,7 +60,9 @@ export default function VendorDashboard() {
   // UI
   const [isMLRunning,   setIsMLRunning]   = useState(false);
   const [forecastError, setForecastError] = useState("");
-  const [showAddModal,  setShowAddModal]  = useState(false);
+  const [showModal,     setShowModal]     = useState(false);
+  const [editingProduct,setEditingProduct]= useState(null);
+  const [loading,       setLoading]       = useState(true);
 
   // Add product form
   const [newProductName,     setNewProductName]     = useState("");
@@ -85,7 +87,7 @@ export default function VendorDashboard() {
       // FIX: payload.chartData is a plain array (no custom array properties)
       setForecastData(Array.isArray(payload.chartData) ? payload.chartData : []);
       setForecastMetrics(payload.metrics ?? { rmse: null, mape: null });
-      setForecastSource(payload.source || "sklearn-linear-regression");
+      setForecastSource(payload.source || "lstm");
     } catch (err) {
       setForecastError("Could not load forecast. Ensure the backend is running.");
       setForecastData([]);
@@ -139,6 +141,8 @@ export default function VendorDashboard() {
         fetchInventoryRecs(vid);
       } catch (err) {
         console.error("Dashboard load error:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -193,8 +197,8 @@ export default function VendorDashboard() {
     }
   };
 
-  // ── Add product ────────────────────────────────────────────────────────────
-  const handleAddProduct = async (e) => {
+  // ── Save product (Add or Edit) ─────────────────────────────────────────────
+  const handleSaveProduct = async (e) => {
     e.preventDefault();
     if (!newProductName || !newProductPrice || !newProductStock) {
       alert("Please fill in required fields.");
@@ -208,25 +212,64 @@ export default function VendorDashboard() {
       stock:            parseInt(newProductStock, 10),
       description:      newProductDesc || "No description provided.",
       image:            newProductImg || "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
-      vendorId,
-      reorderThreshold: Math.ceil(parseInt(newProductStock, 10) * 0.2),
-      salesVelocity:    1.5,
     };
 
-    try {
-      const res         = await authFetch("/api/products", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
-      const freshProduct = res.ok ? await res.json() : { ...payload, id: `p-${Date.now()}` };
-      setProducts((prev) => [...prev, freshProduct]);
-    } catch {
-      setProducts((prev) => [...prev, { ...payload, id: `p-${Date.now()}` }]);
+    if (editingProduct) {
+      // Edit mode
+      try {
+        const res = await authFetch(`/api/products/${editingProduct.id}`, {
+          method: "PUT",
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          const updated = await res.json();
+          setProducts((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
+        } else {
+          alert("Failed to update product.");
+        }
+      } catch {
+        alert("Error updating product. Ensure the server is running.");
+      }
+    } else {
+      // Add mode
+      payload.vendorId = vendorId;
+      payload.reorderThreshold = Math.ceil(parseInt(newProductStock, 10) * 0.2);
+      payload.salesVelocity = 1.5;
+
+      try {
+        const res = await authFetch("/api/products", {
+          method: "POST",
+          body: JSON.stringify(payload),
+        });
+        const freshProduct = res.ok ? await res.json() : { ...payload, id: `p-${Date.now()}` };
+        setProducts((prev) => [...prev, freshProduct]);
+      } catch {
+        setProducts((prev) => [...prev, { ...payload, id: `p-${Date.now()}` }]);
+      }
     }
 
-    setShowAddModal(false);
+    setShowModal(false);
+    setEditingProduct(null);
     setNewProductName(""); setNewProductPrice(""); setNewProductStock("");
-    setNewProductDesc("");  setNewProductImg("");
+    setNewProductDesc(""); setNewProductImg(""); setNewProductCategory("Organic Food");
+  };
+
+  const openAddModal = () => {
+    setEditingProduct(null);
+    setNewProductName(""); setNewProductPrice(""); setNewProductStock("");
+    setNewProductDesc(""); setNewProductImg(""); setNewProductCategory("Organic Food");
+    setShowModal(true);
+  };
+
+  const openEditModal = (product) => {
+    setEditingProduct(product);
+    setNewProductName(product.name || "");
+    setNewProductCategory(product.category || "Organic Food");
+    setNewProductPrice(product.price || "");
+    setNewProductStock(product.stock || "");
+    setNewProductDesc(product.description || "");
+    setNewProductImg(product.image || "");
+    setShowModal(true);
   };
 
   // ── Derived metrics ────────────────────────────────────────────────────────
@@ -259,7 +302,7 @@ export default function VendorDashboard() {
             </p>
           </div>
           <button
-            onClick={() => setShowAddModal(true)}
+            onClick={openAddModal}
             className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-olive hover:bg-olive-600 text-white font-bold text-xs rounded-xl shadow-sm transition"
           >
             <Plus className="w-4 h-4" />
@@ -267,6 +310,13 @@ export default function VendorDashboard() {
           </button>
         </div>
 
+        {loading ? (
+          <div className="flex items-center justify-center py-20 text-olive">
+            <span className="w-8 h-8 border-4 border-olive/30 border-t-olive rounded-full animate-spin" />
+            <span className="ml-3 font-semibold text-darkgray">Loading dashboard data...</span>
+          </div>
+        ) : (
+          <>
         {/* Overview cards */}
         <section className="grid sm:grid-cols-3 gap-6">
           <MetricCard
@@ -303,8 +353,8 @@ export default function VendorDashboard() {
                   30-Day Demand Forecast
                 </h3>
                 <p className="text-[11px] text-darkgray/55 mt-0.5">
-                  {forecastSource === "sklearn-linear-regression"
-                    ? "Linear Regression (scikit-learn)"
+                  {forecastSource === "lstm"
+                    ? "LSTM Neural Network (JS)"
                     : "Exponential Smoothing (JS fallback)"}
                   {" "}· 95% confidence interval
                 </p>
@@ -721,6 +771,13 @@ export default function VendorDashboard() {
                             <button onClick={() => handleUpdateStock(p.id, p.stock, 10)}
                               className="px-2.5 py-1.5 hover:bg-beige border-l border-olive/10 text-xs font-bold">+10</button>
                           </div>
+                          <button
+                            onClick={() => openEditModal(p)}
+                            className="p-1.5 text-blue-500 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition ml-1"
+                            title="Edit product"
+                          >
+                            <Edit2 className="w-3.5 h-3.5" />
+                          </button>
                           {/* FIX: delete product button */}
                           <button
                             onClick={() => handleDeleteProduct(p.id, p.name)}
@@ -811,20 +868,24 @@ export default function VendorDashboard() {
             </div>
           </div>
         </section>
+        </>
+        )}
 
       </main>
 
-      {/* Add Product Modal */}
-      {showAddModal && (
+      {/* Add/Edit Product Modal */}
+      {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-darkgray/40 backdrop-blur-sm p-4">
           <div className="bg-white max-w-md w-full rounded-2xl p-6 shadow-xl border border-olive/10 relative">
-            <button onClick={() => setShowAddModal(false)}
+            <button onClick={() => setShowModal(false)}
               className="absolute top-4 right-4 p-1 hover:bg-beige/45 rounded-full transition text-darkgray/55">
               <XIcon className="w-5 h-5" />
             </button>
-            <h3 className="font-display font-semibold text-darkgray text-lg mb-6">Create Store Listing</h3>
+            <h3 className="font-display font-semibold text-darkgray text-lg mb-6">
+              {editingProduct ? "Edit Store Listing" : "Create Store Listing"}
+            </h3>
 
-            <form onSubmit={handleAddProduct} className="space-y-4">
+            <form onSubmit={handleSaveProduct} className="space-y-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-darkgray/60 mb-1.5">Product Name</label>
                 <input type="text" required value={newProductName} onChange={(e) => setNewProductName(e.target.value)}
@@ -872,13 +933,13 @@ export default function VendorDashboard() {
               </div>
 
               <div className="flex gap-3 pt-4">
-                <button type="button" onClick={() => setShowAddModal(false)}
+                <button type="button" onClick={() => setShowModal(false)}
                   className="flex-1 py-3 border border-olive/20 text-darkgray font-bold text-xs rounded-xl hover:bg-beige/40 transition">
                   Cancel
                 </button>
                 <button type="submit"
                   className="flex-1 py-3 bg-olive hover:bg-olive-600 text-white font-bold text-xs rounded-xl shadow transition">
-                  List Product
+                  {editingProduct ? "Save Changes" : "List Product"}
                 </button>
               </div>
             </form>

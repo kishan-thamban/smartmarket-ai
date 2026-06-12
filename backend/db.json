@@ -149,9 +149,9 @@
       "logo": "C",
       "rating": 0,
       "status": "Pending Approval",
-      "revenue": 349,
-      "balance": 314,
-      "itemsFulfilled": 1,
+      "revenue": 1745,
+      "balance": 1570,
+      "itemsFulfilled": 5,
       "returnRate": "0%"
     }
   ],
@@ -292,7 +292,7 @@
       "name": "Handmade Bracelet",
       "category": "Apparel",
       "price": 349,
-      "stock": 49,
+      "stock": 45,
       "description": "Handmade ",
       "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
       "vendorId": "v-5cfa1e04",
@@ -429,7 +429,7 @@
     },
     {
       "id": "ord-9038f325-e698-4c86-aeb1-120a06c9278e",
-      "status": "Pending",
+      "status": "Shipped",
       "date": "2026-06-07",
       "paidAt": "2026-06-07T09:46:36.470Z",
       "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
@@ -451,6 +451,147 @@
       "shippingFee": 0,
       "total": 349,
       "paymentMethod": null
+    },
+    {
+      "id": "ord-b001",
+      "customerName": "Rahul Sharma",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 4,
+          "price": 349
+        }
+      ],
+      "total": 1396,
+      "status": "Delivered",
+      "date": "2025-11-15"
+    },
+    {
+      "id": "ord-b002",
+      "customerName": "Priya Nair",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 6,
+          "price": 349
+        }
+      ],
+      "total": 2094,
+      "status": "Delivered",
+      "date": "2025-12-10"
+    },
+    {
+      "id": "ord-b003",
+      "customerName": "Aman Verma",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 9,
+          "price": 349
+        }
+      ],
+      "total": 3141,
+      "status": "Delivered",
+      "date": "2026-01-12"
+    },
+    {
+      "id": "ord-b004",
+      "customerName": "Sneha Reddy",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 12,
+          "price": 349
+        }
+      ],
+      "total": 4188,
+      "status": "Delivered",
+      "date": "2026-02-08"
+    },
+    {
+      "id": "ord-b005",
+      "customerName": "Vikram Rao",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 16,
+          "price": 349
+        }
+      ],
+      "total": 5584,
+      "status": "Delivered",
+      "date": "2026-03-14"
+    },
+    {
+      "id": "ord-b006",
+      "customerName": "Neha Gupta",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 21,
+          "price": 349
+        }
+      ],
+      "total": 7329,
+      "status": "Delivered",
+      "date": "2026-04-11"
+    },
+    {
+      "id": "ord-b007",
+      "customerName": "Arjun Mehta",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 27,
+          "price": 349
+        }
+      ],
+      "total": 9423,
+      "status": "Delivered",
+      "date": "2026-05-16"
+    },
+    {
+      "id": "ord-aa8ace49-521e-4714-a71c-e3aa612f63e4",
+      "status": "Pending",
+      "date": "2026-06-10",
+      "paidAt": "2026-06-10T16:12:46.367Z",
+      "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
+      "customerName": "Customer",
+      "phone": "8712138985",
+      "shippingAddress": "30, 2nd floor, Sai Nilayam, HYDERABAD, Telangana, PIN 500026",
+      "vendorId": "v-5cfa1e04",
+      "items": [
+        {
+          "productId": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "quantity": 4,
+          "price": 349,
+          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
+          "vendorId": "v-5cfa1e04"
+        }
+      ],
+      "subtotal": 1396,
+      "shippingFee": 99,
+      "total": 1495,
+      "paymentMethod": {
+        "type": "card",
+        "last4": "1521",
+        "brand": "Rupay"
+      }
     }
   ],
   "salesHistory": [
@@ -1599,18 +1740,810 @@
       "revenue": 2799
     },
     {
-      "id": "sh-1780825596470-ff0510ae",
+      "id": "sh-601",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-03",
+      "quantity": 2,
+      "revenue": 698
+    },
+    {
+      "id": "sh-602",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-04",
+      "quantity": 2,
+      "revenue": 698
+    },
+    {
+      "id": "sh-603",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-05",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-604",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-06",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-605",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-07",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-606",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-08",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-607",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-09",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-608",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-10",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-609",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-11",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-610",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-12",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-611",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-13",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-612",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-14",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-613",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-15",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-614",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-16",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-615",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-17",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-616",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-18",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-617",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-19",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-618",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-20",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-619",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-21",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-620",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-22",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-621",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-23",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-622",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-24",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-623",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-25",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-624",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-26",
+      "quantity": 3,
+      "revenue": 1047
+    },
+    {
+      "id": "sh-625",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-27",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-626",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-28",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-627",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-29",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-628",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-30",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-629",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-03-31",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-630",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-01",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-631",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-02",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-632",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-03",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-633",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-04",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-634",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-05",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-635",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-06",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-636",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-07",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-637",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-08",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-638",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-09",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-639",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-10",
+      "quantity": 4,
+      "revenue": 1396
+    },
+    {
+      "id": "sh-640",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-11",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-641",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-12",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-642",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-13",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-643",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-14",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-644",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-15",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-645",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-16",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-646",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-17",
+      "quantity": 5,
+      "revenue": 1745
+    },
+    {
+      "id": "sh-647",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-18",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-648",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-19",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-649",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-20",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-650",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-21",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-651",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-22",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-652",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-23",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-653",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-24",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-654",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-25",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-655",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-26",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-656",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-27",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-657",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-28",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-658",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-29",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-659",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-04-30",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-660",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-01",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-661",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-02",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-662",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-03",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-663",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-04",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-664",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-05",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-665",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-06",
+      "quantity": 6,
+      "revenue": 2094
+    },
+    {
+      "id": "sh-666",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-07",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-667",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-08",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-668",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-09",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-669",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-10",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-670",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-11",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-671",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-12",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-672",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-13",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-673",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-14",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-674",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-15",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-675",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-16",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-676",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-17",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-677",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-18",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-678",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-19",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-679",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-20",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-680",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-21",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-681",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-22",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-682",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-23",
+      "quantity": 10,
+      "revenue": 3490
+    },
+    {
+      "id": "sh-683",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-24",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-684",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-25",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-685",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-26",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-686",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-27",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-687",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-28",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-688",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-29",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-689",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-30",
+      "quantity": 11,
+      "revenue": 3839
+    },
+    {
+      "id": "sh-690",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-05-31",
+      "quantity": 12,
+      "revenue": 4188
+    },
+    {
+      "id": "sh-691",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-01",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-692",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-02",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-693",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-03",
+      "quantity": 8,
+      "revenue": 2792
+    },
+    {
+      "id": "sh-694",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-04",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-695",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-05",
+      "quantity": 7,
+      "revenue": 2443
+    },
+    {
+      "id": "sh-696",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-06",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-697",
       "productId": "p-ef988520",
       "vendorId": "v-5cfa1e04",
       "date": "2026-06-07",
-      "quantity": 1,
-      "revenue": 349
+      "quantity": 11,
+      "revenue": 3839
+    },
+    {
+      "id": "sh-698",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-08",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-699",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-09",
+      "quantity": 9,
+      "revenue": 3141
+    },
+    {
+      "id": "sh-1781107966399-12f424ff",
+      "productId": "p-ef988520",
+      "vendorId": "v-5cfa1e04",
+      "date": "2026-06-10",
+      "quantity": 4,
+      "revenue": 1396
     }
   ],
   "stats": {
-    "gmv": 1645497,
+    "gmv": 1646992,
     "commissionRate": 10,
-    "totalCommission": 164550,
+    "totalCommission": 164700,
     "activeVendors": 4,
     "pendingVendors": 3
   },
@@ -1622,19 +2555,8 @@
     },
     "user-d41f524e-005e-48f0-920b-67c652251809": {
       "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
-      "items": [
-        {
-          "id": "p-04",
-          "name": "Handwoven Bamboo Fruit Basket",
-          "price": 899,
-          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
-          "category": "Home & Kitchen",
-          "stock": 8,
-          "vendorId": "v-01",
-          "quantity": 9
-        }
-      ],
-      "updatedAt": "2026-06-07T09:48:46.393Z"
+      "items": [],
+      "updatedAt": "2026-06-10T16:12:46.524Z"
     }
   }
 }

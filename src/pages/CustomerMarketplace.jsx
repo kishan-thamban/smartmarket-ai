@@ -58,10 +58,6 @@ export default function CustomerMarketplace() {
   // ── Product detail / cart drawer ──
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isCartOpen, setIsCartOpen]           = useState(false);
-  const [checkoutStep, setCheckoutStep]       = useState("idle");
-  const [shippingAddress, setShippingAddress] = useState("");
-  const [customerName, setCustomerName]       = useState("");
-  const [paymentStatus, setPaymentStatus]     = useState("idle");
 
   // Toast notification for "Added to cart"
   const [toast, setToast]                     = useState(null);
@@ -96,9 +92,6 @@ export default function CustomerMarketplace() {
       }
     };
     fetchMeta();
-
-    const savedName = localStorage.getItem("userName");
-    if (savedName) setCustomerName(savedName);
   }, []);
 
   // ── Fetch products whenever any filter / sort / page changes ──
@@ -186,52 +179,6 @@ export default function CustomerMarketplace() {
 
   const handleUpdateCartQty = (productId, delta) => updateQuantity(productId, delta);
   const handleRemoveFromCart = (productId)       => removeItem(productId);
-
-  // ── Razorpay mock ──
-  const triggerRazorpayCheckout = () => {
-    if (!shippingAddress.trim() || !customerName.trim()) {
-      alert("Please enter a name and delivery address.");
-      return;
-    }
-    setCheckoutStep("payment");
-    setPaymentStatus("processing");
-
-    setTimeout(async () => {
-      setPaymentStatus("success");
-
-      const orderPayload = {
-        customerName,
-        shippingAddress,
-        items: cart.map((item) => ({
-          productId: item.id,
-          name:      item.name,
-          quantity:  item.quantity,
-          price:     item.price,
-        })),
-        total:    cartTotal,
-        vendorId: cart[0]?.vendorId || "v-01",
-      };
-
-      try {
-        const token = localStorage.getItem("token");
-        await fetch("/api/orders", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-          },
-          body: JSON.stringify(orderPayload),
-        });
-      } catch (err) {
-        console.warn("Failed to post order to backend:", err);
-      }
-
-      setTimeout(() => {
-        setCheckoutStep("success");
-        // Cart is cleared by CartPage / CartContext after order success
-      }, 1000);
-    }, 2500);
-  };
 
   const sortLabel = SORT_OPTIONS.find((o) => o.value === sortBy)?.label || "Sort";
 
@@ -647,7 +594,7 @@ export default function CustomerMarketplace() {
               </div>
               <div className="flex items-center gap-2">
                 {/* View full cart page link */}
-                {cart.length > 0 && checkoutStep === "idle" && (
+                {cart.length > 0 && (
                   <button
                     onClick={() => { setIsCartOpen(false); navigate("/cart"); }}
                     className="text-xs text-olive font-semibold hover:underline"
@@ -655,132 +602,43 @@ export default function CustomerMarketplace() {
                     View Cart Page
                   </button>
                 )}
-                <button onClick={() => { setIsCartOpen(false); setCheckoutStep("idle"); }} className="p-1.5 hover:bg-beige/40 rounded-full transition">
+                <button onClick={() => setIsCartOpen(false)} className="p-1.5 hover:bg-beige/40 rounded-full transition">
                   <X className="w-4 h-4 text-darkgray/60" />
                 </button>
               </div>
             </div>
 
-            {checkoutStep === "idle" && (
-              <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                {cart.length === 0 ? (
-                  <div className="h-full flex flex-col items-center justify-center text-center">
-                    <ShoppingBag className="w-10 h-10 text-darkgray/25 mb-4" />
-                    <p className="text-sm font-semibold text-darkgray/55">Your cart is empty</p>
-                    <p className="text-xs text-darkgray/40 mt-1">Add items from the marketplace to check out.</p>
-                  </div>
-                ) : (
-                  cart.map((item) => (
-                    <div key={item.id} className="flex gap-4 p-3 bg-beige/25 rounded-xl border border-olive/5">
-                      <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-beige" />
-                      <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm text-darkgray truncate">{item.name}</h4>
-                        <p className="text-xs text-darkgray/50 mb-2">₹{item.price.toLocaleString("en-IN")}</p>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center border border-olive/15 rounded-lg overflow-hidden bg-white">
-                            <button onClick={() => handleUpdateCartQty(item.id, -1)} className="px-2 py-1 text-xs hover:bg-beige">-</button>
-                            <span className="px-2.5 text-xs font-bold text-darkgray">{item.quantity}</span>
-                            <button onClick={() => handleUpdateCartQty(item.id, 1)} className="px-2 py-1 text-xs hover:bg-beige">+</button>
-                          </div>
-                          <button onClick={() => handleRemoveFromCart(item.id)} className="text-xs text-red-500 font-medium hover:underline">
-                            Remove
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            )}
-
-            {checkoutStep === "details" && (
-              <div className="flex-1 overflow-y-auto p-6 space-y-5">
-                <h3 className="font-display font-bold text-darkgray text-lg mb-2">Delivery Details</h3>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-darkgray/60 mb-2">Recipient Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={customerName}
-                    onChange={(e) => setCustomerName(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-olive/20 text-xs focus:outline-none focus:ring-1 focus:ring-olive bg-warmwhite/40"
-                    placeholder="Enter name"
-                  />
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {cart.length === 0 ? (
+                <div className="h-full flex flex-col items-center justify-center text-center">
+                  <ShoppingBag className="w-10 h-10 text-darkgray/25 mb-4" />
+                  <p className="text-sm font-semibold text-darkgray/55">Your cart is empty</p>
+                  <p className="text-xs text-darkgray/40 mt-1">Add items from the marketplace to check out.</p>
                 </div>
-                <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-darkgray/60 mb-2">Shipping Address</label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={shippingAddress}
-                    onChange={(e) => setShippingAddress(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl border border-olive/20 text-xs focus:outline-none focus:ring-1 focus:ring-olive bg-warmwhite/40 resize-none"
-                    placeholder="Provide full shipping address details..."
-                  />
-                </div>
-              </div>
-            )}
-
-            {checkoutStep === "payment" && (
-              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-                {paymentStatus === "processing" ? (
-                  <div className="space-y-6">
-                    <div className="bg-darkgray text-white p-6 rounded-2xl max-w-xs mx-auto shadow-xl border border-white/10 relative">
-                      <div className="flex justify-between items-center mb-6 pb-2 border-b border-white/10">
-                        <div className="flex items-center gap-1.5">
-                          <span className="w-5 h-5 rounded bg-blue-500 flex items-center justify-center text-[10px] font-bold text-white">R</span>
-                          <span className="text-[11px] font-bold tracking-wider">Razorpay Checkout</span>
+              ) : (
+                cart.map((item) => (
+                  <div key={item.id} className="flex gap-4 p-3 bg-beige/25 rounded-xl border border-olive/5">
+                    <img src={item.image} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-beige" />
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-sm text-darkgray truncate">{item.name}</h4>
+                      <p className="text-xs text-darkgray/50 mb-2">₹{item.price.toLocaleString("en-IN")}</p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center border border-olive/15 rounded-lg overflow-hidden bg-white">
+                          <button onClick={() => handleUpdateCartQty(item.id, -1)} className="px-2 py-1 text-xs hover:bg-beige">-</button>
+                          <span className="px-2.5 text-xs font-bold text-darkgray">{item.quantity}</span>
+                          <button onClick={() => handleUpdateCartQty(item.id, 1)} className="px-2 py-1 text-xs hover:bg-beige">+</button>
                         </div>
-                        <span className="text-[10px] text-white/50">SmartMarketAI</span>
-                      </div>
-                      <div className="space-y-3 mb-6">
-                        <p className="text-[11px] text-white/60">Amount Payable</p>
-                        <p className="text-2xl font-bold font-display text-emerald-400">₹{(cartTotal + 99).toLocaleString("en-IN")}</p>
-                      </div>
-                      <div className="p-3 bg-white/5 rounded-xl text-left border border-white/5 flex items-center gap-2">
-                        <CreditCard className="w-4 h-4 text-white/60 shrink-0" />
-                        <div className="leading-tight">
-                          <p className="text-[9px] font-bold uppercase tracking-wider text-white/50">Processing Card</p>
-                          <p className="text-[10px] font-medium text-white/80">•••• •••• •••• 5849</p>
-                        </div>
-                      </div>
-                      <div className="mt-6 flex items-center justify-center gap-2 text-xs font-semibold text-white/80">
-                        <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Connecting to bank gateway...
+                        <button onClick={() => handleRemoveFromCart(item.id)} className="text-xs text-red-500 font-medium hover:underline">
+                          Remove
+                        </button>
                       </div>
                     </div>
                   </div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center mx-auto text-emerald-600">
-                      <Check className="w-6 h-6" />
-                    </div>
-                    <h4 className="font-display font-semibold text-lg text-darkgray">Payment Successful</h4>
-                    <p className="text-xs text-darkgray/55">Updating your supply chain records...</p>
-                  </div>
-                )}
-              </div>
-            )}
+                ))
+              )}
+            </div>
 
-            {checkoutStep === "success" && (
-              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-14 h-14 rounded-full bg-olive/12 flex items-center justify-center mx-auto text-olive mb-4">
-                  <ShoppingBag className="w-7 h-7" />
-                </div>
-                <h3 className="font-display font-bold text-xl text-darkgray">Order Confirmed!</h3>
-                <p className="text-xs text-darkgray/60 mt-2 max-w-xs mx-auto leading-relaxed">
-                  Your purchase was logged on the blockchain ledger. Product demand has been indexed for the next vendor restock cycle.
-                </p>
-                <button
-                  onClick={() => { setIsCartOpen(false); setCheckoutStep("idle"); }}
-                  className="mt-8 px-6 py-2.5 rounded-xl bg-olive text-white font-bold text-xs shadow hover:bg-olive-600 transition"
-                >
-                  Continue Shopping
-                </button>
-              </div>
-            )}
-
-            {cart.length > 0 && checkoutStep !== "payment" && checkoutStep !== "success" && (
+            {cart.length > 0 && (
               <div className="p-6 bg-beige/30 border-t border-olive/10 space-y-4">
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs text-darkgray/65">
@@ -797,32 +655,13 @@ export default function CustomerMarketplace() {
                   </div>
                 </div>
 
-                {checkoutStep === "idle" && (
-                  <button
-                    onClick={() => setCheckoutStep("details")}
-                    className="w-full py-3 bg-olive hover:bg-olive-600 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-1.5"
-                  >
-                    Proceed to Checkout
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                )}
-
-                {checkoutStep === "details" && (
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => setCheckoutStep("idle")}
-                      className="flex-1 py-3 border border-olive/20 text-darkgray hover:bg-beige/40 font-bold text-xs rounded-xl transition"
-                    >
-                      Back to Cart
-                    </button>
-                    <button
-                      onClick={triggerRazorpayCheckout}
-                      className="flex-1 py-3 bg-olive hover:bg-olive-600 text-white font-bold text-xs rounded-xl shadow-md transition"
-                    >
-                      Pay via Razorpay
-                    </button>
-                  </div>
-                )}
+                <button
+                  onClick={() => navigate("/checkout")}
+                  className="w-full py-3 bg-olive hover:bg-olive-600 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center justify-center gap-1.5"
+                >
+                  Proceed to Checkout
+                  <ChevronRight className="w-4 h-4" />
+                </button>
               </div>
             )}
 

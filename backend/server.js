@@ -1,7 +1,14 @@
 /**
  * server.js — SmartMarketAI Backend
  *
- * Fixes applied:
+ * Forecasting:
+ *  - Active model: LSTM (./ml/lstm.js) via generateLSTMForecast()
+ *  - Fallback: JS exponential-smoothing (buildForecastData) when LSTM has
+ *    insufficient history (< minimum sequence length).
+ *  - Forecast is served by getForecastData(), which selects the appropriate
+ *    engine and tags the response with { source: "lstm" | "js-exponential-smoothing" }.
+ *
+ * Other notes:
  *  - dotenv loaded at the very top; JWT_SECRET required from env
  *  - CORS restricted to FRONTEND_ORIGIN env var (dev-friendly fallback)
  *  - crypto.randomUUID() replaces Math.random() order IDs
@@ -9,8 +16,6 @@
  *  - DELETE /api/products/:id — implemented with ownership check
  *  - POST /api/orders       — stock validation before write
  *  - GET /api/forecast/:id  — returns { chartData, totalPredictedDemand, metrics }
- *                             (no custom properties on array)
- *  - buildForecastData      — returns plain { chartData[], totalPredictedDemand, metrics }
  *  - Admin routes           — all behind verifyToken + requireRole("admin")
  */
 
@@ -19,16 +24,17 @@ import { randomUUID } from "crypto";
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
 import fs from "fs";
 import path from "path";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { fileURLToPath } from "url";
-import { execFile } from "child_process";
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname  = path.dirname(__filename);
-const DB_FILE    = path.join(__dirname, "db.json");
+import { readDB, writeDB, recordSalesHistory } from "./db/json-adapter.js";
+import { generateLSTMForecast } from "./ml/lstm.js";
 
 const app  = express();
 const PORT = process.env.PORT || 5000;
@@ -54,64 +60,21 @@ app.use(
   })
 );
 
+app.use(helmet());
+
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: { message: "Too many requests, please try again later." }
+});
+app.use("/api/", apiLimiter);
+
 app.use(express.json());
 app.use(morgan("dev"));
 
-// ── DB HELPERS ───────────────────────────────────────────────────────────────
-
-const readDB = () => {
-  if (!fs.existsSync(DB_FILE)) {
-    const defaultData = {
-      users: [], vendors: [], products: [], orders: [], carts: {}, salesHistory: [],
-      stats: { gmv: 0, commissionRate: 10, totalCommission: 0, activeVendors: 0, pendingVendors: 0 },
-    };
-    fs.writeFileSync(DB_FILE, JSON.stringify(defaultData, null, 2));
-    return defaultData;
-  }
-  const raw  = fs.readFileSync(DB_FILE);
-  const data = JSON.parse(raw);
-  if (!data.users)        data.users        = [];
-  if (!data.salesHistory) data.salesHistory = [];
-  if (!data.carts)        data.carts        = {};
-  if (!data.stats)        data.stats        = { gmv: 0, commissionRate: 10, totalCommission: 0, activeVendors: 0, pendingVendors: 0 };
-  return data;
-};
-
-const writeDB = (data) => {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
-};
-
-// ── SALES HISTORY HELPER ─────────────────────────────────────────────────────
-
-const recordSalesHistory = (db, order) => {
-  const today = order.date || new Date().toISOString().split("T")[0];
-
-  order.items.forEach((item) => {
-    const product    = db.products.find((p) => p.id === item.productId);
-    const vendorId   = product ? product.vendorId : (item.vendorId ?? order.vendorId);
-    const lineRevenue = item.price * item.quantity;
-
-    const existing = db.salesHistory.find(
-      (s) => s.productId === item.productId && s.date === today
-    );
-    if (existing) {
-      existing.quantity += item.quantity;
-      existing.revenue  += lineRevenue;
-    } else {
-      db.salesHistory.push({
-        id:        `sh-${Date.now()}-${randomUUID().slice(0, 8)}`,
-        productId: item.productId,
-        vendorId,
-        date:      today,
-        quantity:  item.quantity,
-        revenue:   lineRevenue,
-      });
-    }
-  });
-};
-
-// ── JS FORECAST ENGINE (fallback when Python unavailable) ────────────────────
-// Returns a plain object — no custom properties attached to arrays.
+// ── JS EXPONENTIAL-SMOOTHING FALLBACK ────────────────────────────────────────
+// Used when the LSTM model reports insufficient_data.
+// Returns a plain object: { chartData, totalPredictedDemand, metrics }.
 
 const buildForecastData = (salesHistory, productId) => {
   const records = salesHistory
@@ -138,46 +101,49 @@ const buildForecastData = (salesHistory, productId) => {
 
   const avgQty = Object.values(byDate).reduce((s, v) => s + v, 0) / Object.values(byDate).length;
 
-  const historical = allDates.map((date) => ({
-    date:       date.slice(5), // MM-DD
-    sales:      byDate[date] !== undefined ? byDate[date] : Math.round(avgQty * 0.8),
-    isForecast: false,
+  // Build historical rows: { date, actual, predicted, upper, lower }
+  const historicalRaw = allDates.map((date) => ({
+    date:      date.slice(5), // MM-DD
+    actual:    byDate[date] !== undefined ? byDate[date] : Math.round(avgQty * 0.8),
+    predicted: null,
+    upper:     null,
+    lower:     null,
   }));
 
-  const trimmedHistory = historical.slice(-60);
+  const trimmedHistory = historicalRaw.slice(-60);
 
   // Exponential smoothing
   const alpha = 0.3;
-  let smoothed = trimmedHistory[0].sales;
+  let smoothed = trimmedHistory[0].actual;
   trimmedHistory.forEach((p) => {
-    smoothed = alpha * p.sales + (1 - alpha) * smoothed;
+    smoothed = alpha * p.actual + (1 - alpha) * smoothed;
   });
 
   // Derive std-dev from last 14 days for confidence bands
-  const recent = trimmedHistory.slice(-14).map((p) => p.sales);
+  const recent = trimmedHistory.slice(-14).map((p) => p.actual);
   const mean   = recent.reduce((s, v) => s + v, 0) / recent.length;
   const stdDev = Math.sqrt(
     recent.reduce((s, v) => s + Math.pow(v - mean, 2), 0) / recent.length
   ) || 1;
 
   // RMSE on historical (in-sample residuals from smoothed level)
-  let runSmoothed = trimmedHistory[0].sales;
+  let runSmoothed = trimmedHistory[0].actual;
   let ssResiduals = 0;
   let mapeSum     = 0;
   let mapeCount   = 0;
   trimmedHistory.forEach((p) => {
     const pred = runSmoothed;
-    const err  = p.sales - pred;
+    const err  = p.actual - pred;
     ssResiduals += err * err;
-    if (p.sales > 0) { mapeSum += Math.abs(err / p.sales); mapeCount++; }
-    runSmoothed = alpha * p.sales + (1 - alpha) * runSmoothed;
+    if (p.actual > 0) { mapeSum += Math.abs(err / p.actual); mapeCount++; }
+    runSmoothed = alpha * p.actual + (1 - alpha) * runSmoothed;
   });
   const rmse = parseFloat(Math.sqrt(ssResiduals / trimmedHistory.length).toFixed(2));
   const mape = mapeCount > 0 ? parseFloat((mapeSum / mapeCount * 100).toFixed(2)) : null;
 
-  const lastDate     = new Date(allDates[allDates.length - 1]);
-  const forecastPts  = [];
-  let level          = smoothed;
+  const lastDate    = new Date(allDates[allDates.length - 1]);
+  const forecastPts = [];
+  let level         = smoothed;
 
   for (let i = 1; i <= 30; i++) {
     const forecastDate = new Date(lastDate);
@@ -186,26 +152,73 @@ const buildForecastData = (salesHistory, productId) => {
 
     const noise = (Math.random() - 0.48) * stdDev * 0.4;
     level = Math.max(0, alpha * (level + noise) + (1 - alpha) * level);
-    const sales = Math.max(0, Math.round(level));
-    const band  = Math.round(stdDev * (1 + i * 0.03));
+    const predicted = Math.max(0, Math.round(level));
+    const band      = Math.round(stdDev * (1 + i * 0.03));
 
     forecastPts.push({
-      date:            dateLabel,
-      sales,
-      isForecast:      true,
-      predictedDemand: sales,
-      upperConfidence: sales + band,
-      lowerConfidence: Math.max(0, sales - band),
+      date:      dateLabel,
+      actual:    null,
+      predicted,
+      upper:     predicted + band,
+      lower:     Math.max(0, predicted - band),
     });
   }
 
-  const totalPredictedDemand = forecastPts.reduce((s, p) => s + p.sales, 0);
+  const totalPredictedDemand = forecastPts.reduce((s, p) => s + p.predicted, 0);
   const chartData            = [...trimmedHistory, ...forecastPts];
 
   return { chartData, totalPredictedDemand, metrics: { rmse, mape } };
 };
 
-// ── SEED ADMIN ───────────────────────────────────────────────────────────────
+// ── LSTM FORECAST ENGINE ──────────────────────────────────────────────────────
+// Primary model: LSTM (./ml/lstm.js). Falls back to JS exponential smoothing
+// when there is insufficient sales history to run the LSTM sequence model.
+const getForecastData = (db, productId) => {
+  const history = db.salesHistory
+    .filter((s) => s.productId === productId)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+  if (history.length === 0) return { chartData: [], totalPredictedDemand: 0, metrics: { rmse: 0, mape: 0 }, source: "none" };
+
+  const salesArray = history.map((s) => s.quantity);
+  const lstmResult = generateLSTMForecast(salesArray, 30);
+  
+  if (lstmResult.error === "insufficient_data") {
+    const fallback = buildForecastData(db.salesHistory, productId);
+    return { ...fallback, source: "js-exponential-smoothing" };
+  }
+
+  const chartData = [];
+  let totalPredictedDemand = 0;
+  
+  history.forEach(s => {
+    chartData.push({ date: s.date, actual: s.quantity, predicted: null, lower: null, upper: null });
+  });
+
+  const lastDateStr = history[history.length - 1].date;
+  let currentDate = new Date(lastDateStr);
+  
+  lstmResult.predictions.forEach((pred, i) => {
+    currentDate.setDate(currentDate.getDate() + 1);
+    const dStr = currentDate.toISOString().split("T")[0];
+    
+    const margin = lstmResult.residual_std * (1 + i * 0.05);
+    const lower = Math.max(0, Math.round(pred - margin));
+    const upper = Math.round(pred + margin);
+    
+    chartData.push({ date: dStr, actual: null, predicted: pred, lower, upper });
+    totalPredictedDemand += pred;
+  });
+
+  return {
+    chartData,
+    totalPredictedDemand,
+    metrics: lstmResult.metrics,
+    source: "lstm"
+  };
+};
+
+// ── AUTH MIDDLEWARE ───────────────────────────────────────────────────────────────
 
 const seedAdminUser = async () => {
   const db         = readDB();
@@ -412,7 +425,7 @@ app.post("/api/products", verifyToken, requireRole("vendor", "admin"), (req, res
   res.status(201).json(newProduct);
 });
 
-// FIX: vendor ownership check — vendors can only update their own products
+
 app.put("/api/products/:id", verifyToken, requireRole("vendor", "admin"), (req, res) => {
   const db  = readDB();
   const idx = db.products.findIndex((p) => p.id === req.params.id);
@@ -429,7 +442,7 @@ app.put("/api/products/:id", verifyToken, requireRole("vendor", "admin"), (req, 
   res.json(db.products[idx]);
 });
 
-// FIX: DELETE /api/products/:id — new endpoint with ownership check
+
 app.delete("/api/products/:id", verifyToken, requireRole("vendor", "admin"), (req, res) => {
   const db  = readDB();
   const idx = db.products.findIndex((p) => p.id === req.params.id);
@@ -454,7 +467,6 @@ app.get("/api/orders", verifyToken, (req, res) => {
   res.json(db.orders);
 });
 
-// FIX: stock validation before writing order
 app.post("/api/orders", verifyToken, requireRole("customer"), (req, res) => {
   const db = readDB();
   const { customerName, shippingAddress, phone, items, total, subtotal, shippingFee, paymentMethod, vendorId, status, paidAt } = req.body;
@@ -572,53 +584,11 @@ app.get("/api/sales-history", verifyToken, (req, res) => {
   res.json(records);
 });
 
-// FIX: Forecast serialization — return plain object, no custom array props
-app.get("/api/sales-history/forecast", verifyToken, (req, res) => {
-  const { productId } = req.query;
-  if (!productId)
-    return res.status(400).json({ message: "productId query param is required." });
-
-  const db      = readDB();
-  const result  = buildForecastData(db.salesHistory, productId);
-  res.json(result);
-});
-
-// FIX: /api/forecast/:productId — properly serialized response
 app.get("/api/forecast/:productId", verifyToken, (req, res) => {
   const { productId } = req.params;
-  const pythonBin     = process.env.PYTHON_BIN || "python3";
-  const scriptPath    = path.join(__dirname, "forecast.py");
-
-  const jsFallback = () => {
-    const db     = readDB();
-    const result = buildForecastData(db.salesHistory, productId);
-    return res.json({ productId, ...result, source: "js-fallback" });
-  };
-
-  if (!fs.existsSync(scriptPath)) return jsFallback();
-
-  execFile(
-    pythonBin,
-    [scriptPath, productId, DB_FILE],
-    { timeout: 30_000, maxBuffer: 1024 * 1024 },
-    (err, stdout, stderr) => {
-      if (err) {
-        console.warn("[forecast] Python error, using JS fallback:", stderr || err.message);
-        return jsFallback();
-      }
-      try {
-        const payload = JSON.parse(stdout);
-        if (payload.error === "insufficient_data") {
-          return res.status(422).json({ message: "Not enough sales history to generate a forecast.", productId });
-        }
-        // Ensure chartData is always a plain array (Python script already returns it correctly)
-        return res.json({ productId, ...payload, source: "sklearn-linear-regression" });
-      } catch (parseErr) {
-        console.error("[forecast] Failed to parse Python output:", parseErr.message);
-        return jsFallback();
-      }
-    }
-  );
+  const db     = readDB();
+  const result = getForecastData(db, productId);
+  return res.json({ productId, ...result });
 });
 
 app.get("/api/inventory-recommendation/:productId", verifyToken, (req, res) => {
@@ -629,7 +599,7 @@ app.get("/api/inventory-recommendation/:productId", verifyToken, (req, res) => {
   if (!product) return res.status(404).json({ message: "Product not found." });
 
   const currentStock   = product.stock ?? 0;
-  const { chartData, totalPredictedDemand, metrics } = buildForecastData(db.salesHistory, productId);
+  const { totalPredictedDemand, metrics, source } = getForecastData(db, productId);
   const recommendedReorder = Math.max(0, totalPredictedDemand - currentStock);
 
   let status = "adequate";
@@ -645,7 +615,7 @@ app.get("/api/inventory-recommendation/:productId", verifyToken, (req, res) => {
     recommendedReorder,
     status,
     metrics,
-    forecastSource: "js-exponential-smoothing",
+    forecastSource: source,
   });
 });
 
@@ -658,13 +628,13 @@ app.get("/api/inventory-recommendation", verifyToken, (req, res) => {
 
   const recommendations = vendorProducts.map((product) => {
     const currentStock   = product.stock ?? 0;
-    const { totalPredictedDemand, metrics } = buildForecastData(db.salesHistory, product.id);
+    const { totalPredictedDemand, metrics, source } = getForecastData(db, product.id);
     const recommendedReorder = Math.max(0, totalPredictedDemand - currentStock);
     let status = "adequate";
     if (recommendedReorder > 0) {
       status = recommendedReorder > currentStock ? "critical" : "low";
     }
-    return { productId: product.id, productName: product.name, currentStock, totalPredictedDemand, recommendedReorder, status, metrics, forecastSource: "js-exponential-smoothing" };
+    return { productId: product.id, productName: product.name, currentStock, totalPredictedDemand, recommendedReorder, status, metrics, forecastSource: source };
   });
 
   recommendations.sort((a, b) => b.recommendedReorder - a.recommendedReorder);
@@ -706,7 +676,7 @@ app.get("/api/sales-history/summary", verifyToken, (req, res) => {
 
 // ── VENDORS ───────────────────────────────────────────────────────────────────
 
-// FIX: /api/vendors now requires admin JWT
+
 app.get("/api/vendors", verifyToken, requireRole("admin"), (req, res) => {
   const db = readDB();
   res.json(db.vendors);
@@ -745,7 +715,7 @@ app.post("/api/vendors/register", async (req, res) => {
   return res.status(201).json({ message: "Vendor registered successfully", vendorId: newVendor.id, token });
 });
 
-// FIX: vendor approval route requires admin JWT (already was, but now explicit)
+
 app.post("/api/vendors/:id/approval", verifyToken, requireRole("admin"), (req, res) => {
   const db     = readDB();
   const vendor = db.vendors.find((v) => v.id === req.params.id);
@@ -767,7 +737,7 @@ app.post("/api/vendors/:id/approval", verifyToken, requireRole("admin"), (req, r
 
 // ── ADMIN STATS ───────────────────────────────────────────────────────────────
 
-// FIX: Both admin routes properly require JWT + admin role
+
 app.get("/api/admin/stats", verifyToken, requireRole("admin"), (req, res) => {
   res.json(readDB().stats);
 });

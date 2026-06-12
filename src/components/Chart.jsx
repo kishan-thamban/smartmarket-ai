@@ -35,7 +35,7 @@ function ChartTooltip({ active, payload, label }) {
   if (!active || !payload || payload.length === 0) return null;
 
   const row        = payload[0]?.payload ?? {};
-  const isForecast = row.isForecast;
+  const isForecast = row.predicted !== null;
 
   return (
     <div className="bg-white border border-olive/15 rounded-xl shadow-lg px-4 py-3 text-xs min-w-[160px]">
@@ -45,18 +45,18 @@ function ChartTooltip({ active, payload, label }) {
         <>
           <div className="flex justify-between gap-4 mb-1">
             <span className="text-darkgray/55">Predicted</span>
-            <span className="font-bold text-olive">{row.predictedDemand ?? row.sales} units</span>
+            <span className="font-bold text-olive">{row.predicted ?? row.actual} units</span>
           </div>
-          {row.upperConfidence !== undefined && (
+          {row.upper !== null && (
             <div className="flex justify-between gap-4 mb-1">
               <span className="text-darkgray/55">Upper (95%)</span>
-              <span className="font-semibold text-darkgray">{row.upperConfidence}</span>
+              <span className="font-semibold text-darkgray">{row.upper}</span>
             </div>
           )}
-          {row.lowerConfidence !== undefined && (
+          {row.lower !== null && (
             <div className="flex justify-between gap-4">
               <span className="text-darkgray/55">Lower (95%)</span>
-              <span className="font-semibold text-darkgray">{row.lowerConfidence}</span>
+              <span className="font-semibold text-darkgray">{row.lower}</span>
             </div>
           )}
           <p className="mt-2 text-[9px] font-bold uppercase tracking-wider text-olive/70">Forecast</p>
@@ -65,7 +65,7 @@ function ChartTooltip({ active, payload, label }) {
         <>
           <div className="flex justify-between gap-4">
             <span className="text-darkgray/55">Actual Sales</span>
-            <span className="font-bold text-darkgray">{row.sales} units</span>
+            <span className="font-bold text-darkgray">{row.actual} units</span>
           </div>
           <p className="mt-2 text-[9px] font-bold uppercase tracking-wider text-darkgray/40">Historical</p>
         </>
@@ -78,7 +78,7 @@ function ChartTooltip({ active, payload, label }) {
 
 function ForecastDot(props) {
   const { cx, cy, payload } = props;
-  if (!payload?.isForecast) return null;
+  if (payload?.predicted === null) return null;
   return <circle cx={cx} cy={cy} r={2.5} fill={OLIVE} stroke="white" strokeWidth={1} />;
 }
 
@@ -88,7 +88,7 @@ export default function ForecastChart({
   data         = [],
   currentStock = null,
   metrics      = { rmse: null, mape: null },
-  source       = "sklearn-linear-regression",
+  source       = "lstm",
 }) {
   if (!data || data.length === 0) {
     return (
@@ -99,16 +99,15 @@ export default function ForecastChart({
   }
 
   // ── Split data for separate series ────────────────────────────────────────
-  const historicalData = data.filter((d) => !d.isForecast);
-  const forecastData   = data.filter((d) =>  d.isForecast);
+  const historicalData = data.filter((d) => d.actual !== null);
+  const forecastData   = data.filter((d) => d.predicted !== null);
 
   // Recharts ComposedChart needs a single flat array.
   // We stitch with a "bridge" point so the line connects seamlessly.
   const bridgePoint = historicalData.length > 0
-    ? { ...historicalData[historicalData.length - 1], isForecast: true,
-        predictedDemand: historicalData[historicalData.length - 1].sales,
-        upperConfidence: historicalData[historicalData.length - 1].sales,
-        lowerConfidence: historicalData[historicalData.length - 1].sales,
+    ? { ...historicalData[historicalData.length - 1], predicted: historicalData[historicalData.length - 1].actual,
+        upper: historicalData[historicalData.length - 1].actual,
+        lower: historicalData[historicalData.length - 1].actual,
       }
     : null;
 
@@ -118,7 +117,7 @@ export default function ForecastChart({
 
   const maxY = Math.max(
     ...combinedData.map((d) =>
-      Math.max(d.sales ?? 0, d.upperConfidence ?? 0, currentStock ?? 0)
+      Math.max(d.actual ?? 0, d.upper ?? d.predicted ?? 0, currentStock ?? 0)
     ),
     10
   );
@@ -144,8 +143,8 @@ export default function ForecastChart({
             </span>
           )}
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-olive/8 border border-olive/15 rounded-lg text-[10px] font-bold text-olive/70">
-            {source === "sklearn-linear-regression"
-              ? "scikit-learn · Linear Regression"
+            {source === "lstm"
+              ? "JS LSTM · Neural Network"
               : "JS Exponential Smoothing"}
             {" "}· out-of-sample evaluation
           </span>
@@ -196,7 +195,7 @@ export default function ForecastChart({
 
             {/* Confidence band (area between upper and lower confidence) */}
             <Area
-              dataKey="upperConfidence"
+              dataKey="upper"
               fill={BEIGE_BAND}
               stroke="none"
               legendType="none"
@@ -206,7 +205,7 @@ export default function ForecastChart({
               isAnimationActive={false}
             />
             <Area
-              dataKey="lowerConfidence"
+              dataKey="lower"
               fill="white"
               stroke="none"
               legendType="none"
@@ -219,7 +218,7 @@ export default function ForecastChart({
             {/* Historical sales line */}
             <Line
               type="monotone"
-              dataKey={(d) => (!d.isForecast ? d.sales : undefined)}
+              dataKey={(d) => (d.actual !== null ? d.actual : undefined)}
               name="Historical Sales"
               stroke={OLIVE_SOFT}
               strokeWidth={2}
@@ -232,7 +231,7 @@ export default function ForecastChart({
             {/* Forecast line */}
             <Line
               type="monotone"
-              dataKey={(d) => (d.isForecast ? (d.predictedDemand ?? d.sales) : undefined)}
+              dataKey={(d) => (d.predicted !== null ? (d.predicted ?? d.actual) : undefined)}
               name="Forecast"
               stroke={OLIVE}
               strokeWidth={2}
@@ -255,13 +254,13 @@ export default function ForecastChart({
           <span>
             Peak predicted:{" "}
             <strong className="text-olive">
-              {Math.max(...forecastData.map((d) => d.predictedDemand ?? d.sales))} units
+              {Math.max(...forecastData.map((d) => d.predicted ?? d.actual ?? 0))} units
             </strong>
           </span>
           <span>
             30-day total:{" "}
             <strong className="text-olive">
-              {forecastData.reduce((s, d) => s + (d.predictedDemand ?? d.sales ?? 0), 0)} units
+              {forecastData.reduce((s, d) => s + (d.predicted ?? d.actual ?? 0), 0)} units
             </strong>
           </span>
         </div>
