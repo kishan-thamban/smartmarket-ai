@@ -65,9 +65,9 @@
       "logo": "KP",
       "rating": 4.8,
       "status": "Approved",
-      "revenue": 452349,
-      "balance": 412314,
-      "itemsFulfilled": 343,
+      "revenue": 452698,
+      "balance": 412628,
+      "itemsFulfilled": 344,
       "returnRate": "1.2%"
     },
     {
@@ -260,7 +260,7 @@
       "price": 349,
       "image": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=80",
       "vendorId": "v-01",
-      "stock": 239,
+      "stock": 238,
       "reorderThreshold": 50,
       "salesVelocity": 8.5,
       "ratings": 4.4,
@@ -291,7 +291,7 @@
       "id": "p-ef988520",
       "name": "Handmade Bracelet",
       "category": "Apparel",
-      "price": 349,
+      "price": 299,
       "stock": 45,
       "description": "Handmade ",
       "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
@@ -591,6 +591,35 @@
         "type": "card",
         "last4": "1521",
         "brand": "Rupay"
+      }
+    },
+    {
+      "id": "ord-7f4b100a-6c1d-47b7-8708-5a405b51a283",
+      "status": "Pending",
+      "date": "2026-06-14",
+      "paidAt": "2026-06-14T04:43:03.857Z",
+      "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
+      "customerName": "Customer",
+      "phone": "8712138985",
+      "shippingAddress": "30, 2nd floor, Sai Nilayam, HYDERABAD, Telangana, PIN 500026",
+      "vendorId": "v-01",
+      "items": [
+        {
+          "productId": "p-05",
+          "name": "Organic Sage Infused Tea",
+          "quantity": 1,
+          "price": 349,
+          "image": "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=500&auto=format&fit=crop&q=80",
+          "vendorId": "v-01"
+        }
+      ],
+      "subtotal": 349,
+      "shippingFee": 99,
+      "total": 448,
+      "paymentMethod": {
+        "type": "card",
+        "last4": "3465",
+        "brand": "Mastercard"
       }
     }
   ],
@@ -2538,12 +2567,20 @@
       "date": "2026-06-10",
       "quantity": 4,
       "revenue": 1396
+    },
+    {
+      "id": "sh-1781412183891-59e1e00b",
+      "productId": "p-05",
+      "vendorId": "v-01",
+      "date": "2026-06-14",
+      "quantity": 1,
+      "revenue": 349
     }
   ],
   "stats": {
-    "gmv": 1646992,
+    "gmv": 1647440,
     "commissionRate": 10,
-    "totalCommission": 164700,
+    "totalCommission": 164745,
     "activeVendors": 4,
     "pendingVendors": 3
   },
@@ -2556,7 +2593,7 @@
     "user-d41f524e-005e-48f0-920b-67c652251809": {
       "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
       "items": [],
-      "updatedAt": "2026-06-10T16:12:46.524Z"
+      "updatedAt": "2026-06-14T04:43:04.005Z"
     }
   }
 }

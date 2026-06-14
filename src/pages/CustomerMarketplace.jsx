@@ -201,10 +201,10 @@ export default function CustomerMarketplace() {
         <section className="mb-10 bg-beige rounded-2xl p-8 relative overflow-hidden border border-olive/10">
           <div className="absolute inset-0 grain opacity-20 pointer-events-none" />
           <div className="relative z-10 max-w-2xl">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-olive mb-2 block">Curated Smart Marketplace</span>
-            <h1 className="font-display text-4xl font-bold text-darkgray mb-3">Conscious goods, optimized supply</h1>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-olive mb-2 block">Multi-Vendor Marketplace</span>
+            <h1 className="font-display text-4xl font-bold text-darkgray mb-3">Handmade goods, smarter inventory</h1>
             <p className="text-sm text-darkgray/70 leading-relaxed">
-              Experience the future of multi-vendor shopping. Every product is cataloged, monitored by deep-learning models, and restocked dynamically by real-time intelligence.
+              Browse products from multiple vendors. Stock levels are tracked per product, and vendors use demand forecasts to plan restocking.
             </p>
           </div>
         </section>

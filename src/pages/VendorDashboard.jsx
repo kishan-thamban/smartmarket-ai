@@ -297,7 +297,7 @@ export default function VendorDashboard() {
           <div>
             <h1 className="font-display text-3xl font-bold text-darkgray">Merchant Dashboard</h1>
             <p className="text-xs text-darkgray/65 mt-0.5">
-              Welcome, <strong className="text-darkgray">{vendorName}</strong> · Real-time demand
+              Welcome, <strong className="text-darkgray">{vendorName}</strong> · Demand
               forecasting &amp; inventory management
             </p>
           </div>
