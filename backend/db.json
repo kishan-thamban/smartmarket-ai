@@ -2592,8 +2592,19 @@
     },
     "user-d41f524e-005e-48f0-920b-67c652251809": {
       "userId": "user-d41f524e-005e-48f0-920b-67c652251809",
-      "items": [],
-      "updatedAt": "2026-06-14T04:43:04.005Z"
+      "items": [
+        {
+          "id": "p-ef988520",
+          "name": "Handmade Bracelet",
+          "price": 299,
+          "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?w=500&auto=format&fit=crop&q=80",
+          "category": "Apparel",
+          "stock": 45,
+          "vendorId": "v-5cfa1e04",
+          "quantity": 1
+        }
+      ],
+      "updatedAt": "2026-06-15T04:34:00.289Z"
     }
   }
 }
