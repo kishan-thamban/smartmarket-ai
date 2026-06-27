@@ -8,7 +8,6 @@
 ![JWT](https://img.shields.io/badge/Auth-JWT-orange)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38BDF8?logo=tailwindcss)
 ![Status](https://img.shields.io/badge/Status-Under_Development-yellow)
-![License](https://img.shields.io/badge/License-MIT-blue)
 
 </p>
 
